@@ -1,2 +1,4 @@
 # ruter-app-forbedret
-Ruter app
+Forbedret ruter app
+
+Det er en ruter skjerm i guess
