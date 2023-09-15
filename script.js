@@ -25,7 +25,7 @@ function updateBodyContent() {
     },
     body: JSON.stringify({ 
         query: `{
-            stopPlace(id: "NSR:StopPlace:58297") {
+            stopPlace(id: "NSR:StopPlace:58227") {
                 situations {
                     affects {
                         ... on AffectedStopPlace {
