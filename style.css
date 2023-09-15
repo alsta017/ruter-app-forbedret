@@ -1,0 +1,304 @@
+body{
+    background-color: #121212;
+}
+.wrap{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    flex-direction: column;
+    text-align: center;
+}
+.text{
+    color: white;
+    font-family: 'TID UI Regular';
+}
+#avganger{
+    color: black;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    width: 100%;
+}
+.avgang{
+    display: flex;
+    flex-flow: column;
+    text-align: center;
+    background-color: #212121;
+    margin: 8px;
+    padding: 8px;
+    border-radius: 8px;
+    font-family: 'TID UI Regular';
+    font-size: 150%;
+    width: min-content;
+    width: 50%;
+}
+.line, .destination, .aimed, .expected, .realtime, .realtimedisplay, .realtimedisplayred, .actual{
+    margin: 8px;
+    white-space: nowrap;
+    font-size: 1em;
+    color: white;
+}
+.destcancel{
+    text-decoration: line-through;
+}
+.destcancelexp{
+    text-decoration: line-through;
+    display: none;
+}
+.dest2{
+    margin-right: 8px;
+}
+.expected{
+    font-family: 'TID UI Bold';
+}
+.linefull{
+    display: flex;
+    align-items: center;
+}
+.alltime{
+    display: flex;
+    align-items: center;
+    background-color: #353535;
+    border: 0.01px dashed white;
+    border-radius: 8px;
+    margin: 32px;
+    margin-left: 8px;
+}
+.destination{
+    display: flex;
+    margin-left: 2px;
+}
+.line{
+    border-radius: 8px;
+    padding: 16px;
+}
+.realtimedisplay{
+    margin-left: 0px;
+    width: auto;
+    height: 8px;
+}
+.realtimedisplayred{
+    margin-left: 0px;
+    width: auto;
+    height: 8px;
+}
+.aimed{
+    font-size: 0.75em;
+    margin-left: auto;
+    display: flex;
+    align-items: center;
+    margin-left: 8px;
+    margin-right: 8px;
+}
+.aimeddelayed{
+    text-decoration: line-through;
+    font-size: 0.75em;
+    margin-left: auto;
+    display: flex;
+    align-items: center;
+    margin-left: 8px;
+    margin-right: 4px;
+    color: white;
+}
+.orange{
+    background-color: #EC700C;
+}
+.other{
+    background-color: #757575;
+}
+.red{
+    background-color: #E60000;
+}
+.green{
+    background-color: #75A300;
+}
+.blue{
+    background-color: #0B91EF;
+}
+p{
+    color: white;
+    font-family: 'TID UI Light';
+}
+@media only screen and (max-width: 1500px) {
+    .line, .destination, .aimed, .expected, .realtime, .realtimedisplay, .actual{
+        font-size: 0.75em;
+    }
+    .avgang{
+        width: 60%;
+    }
+    .realtimedisplay{
+        width: 8px;
+        height: 8px;
+    }
+}
+@media only screen and (max-width: 1000px) {
+    .line, .destination, .aimed, .expected, .realtime, .realtimedisplay, .actual{
+        font-size: 0.75em;
+    }
+    .avgang{
+        width: 80%;
+    }
+    .realtimedisplay{
+        width: 4px;
+        height: 4px;
+    }
+}
+@media only screen and (max-width: 650px) {
+    .line, .destination, .aimed, .expected, .realtime, .realtimedisplay, .actual{
+        font-size: 0.75em;
+    }
+    .alltime{
+        margin: 8px;
+        margin-top: 4px;
+    }
+    .aimed{
+        margin: auto;
+        margin-left: 8px;
+        margin-right: 4px;
+    }
+    .avgang{
+        flex-flow: column;
+        width: min-content;
+        padding: 8px;
+    }
+    .line{
+        padding: 16px;
+    }
+    .realtimedisplay{
+        width: 4px;
+        height: 4px;
+    }
+}
+@font-face {
+    font-family: 'TID UI Regular';
+    src: url(Fonts/TIDUI-Regular.ttf);
+}
+@font-face {
+    font-family: 'TID UI Light';
+    src: url(Fonts/TIDUI-Light.ttf);
+}
+@font-face {
+    font-family: 'TID UI Bold';
+    src: url(Fonts/TIDUI-Medium.ttf);
+}
+@keyframes fadeIn { 
+    from { opacity: 0; } 
+}
+/* .realtimedisplay {
+    animation: fadeIn 3s infinite alternate;
+} */
+.notices{
+    background-color: #FFC800;
+    border-radius: 8px;
+    display: flex;
+    flex-flow: column;
+    align-items: center;
+}
+.notices h1{
+    font-size: 100%;
+    font-family: 'TID UI Bold';
+    color: #262626;
+}
+.notices p{
+    font-family: 'TID UI Regular';
+    color: #262626;
+    font-size: 60%;
+}
+.fullalldiv{
+    display: flex;
+    flex-flow: row;
+    justify-content: space-between;
+    width: 100%;
+}
+.affectsDiv{
+    display: flex;
+    flex-flow: row;
+    width: 20%;
+    margin: 10px;
+    display: flex;
+}
+.passengers{
+    font-size: 75%;
+    width: min-content;
+    margin: auto 16px auto auto;
+}
+.affectspDiv{
+    margin: 4px;
+    display: flex;
+    flex-flow: row-reverse;
+    justify-content: center;
+    align-items: center;
+    color: black;
+}
+.affectspDiv2{
+    margin: 4px;
+}
+.affectspDiv3{
+    margin: 4px;
+    display: flex;
+    flex-flow: row-reverse;
+    justify-content: center;
+    align-items: center;
+    color: black;
+}
+.affectspDiv4{
+    margin: 4px;
+    display: flex;
+    flex-flow: row-reverse;
+    justify-content: center;
+    align-items: center;
+    color: black;
+}
+.noticesquay{
+    background-color: #FFC800;
+    border-radius: 8px;
+    font-size: 80%;
+    display: flex;
+    flex-flow: column;
+    align-items: center;
+    flex-wrap: wrap;
+    font-size: 110%;
+}
+.noticesquay h1{
+    font-size: 120%;
+    font-family: 'TID UI Bold';
+    color: #262626;
+}
+.noticesquay p{
+    font-family: 'TID UI Regular';
+    color: #262626;
+    font-size: 80%;
+}
+.affectsDivQauu{
+    display: flex;
+    flex-flow: row;
+    width: 20%;
+    margin: 10px;
+    display: flex;
+}
+.affectsImg{
+    height: 28px;
+    margin-right: 8px;
+    width: auto;
+}
+.affectspDivQuay{
+    margin: 16px 8px 8px 8px;
+    display: flex;
+    flex-flow: row-reverse;
+    justify-content: center;
+    align-items: center;
+}
+.affectspDiv2Quay{
+    display: flex;
+    align-items: center;
+    justify-self: center;
+    font-size: 200%;
+    margin: 8px 8px 16px 8px;
+}
+.affectsImgQuay{
+    height: 28px;
+    margin-right: 8px;
+    width: auto;
+}
