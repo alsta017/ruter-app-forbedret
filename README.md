@@ -1,4 +1,7 @@
 # ruter-app-forbedret
 Forbedret ruter app
 
-Det er en ruter skjerm i guess
+Ruter skjerm
+Designet for display (de som er på busstasjonen), kan også fint brukes på pc og telefon
+
+Reiseplanlegger kommer snart...
