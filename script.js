@@ -3,16 +3,8 @@ let avg = 0;
 let textel = document.getElementById("text");
 let originaltidEl = document.getElementById("originaltid");
 let quaydisruptionsel = document.getElementById("quaydisruptions");
-const between = (x, min, max) => {
-    return x >= min && x <= max;
-};
 updateBodyContent();
-//setInterval(updateBodyContent, 1000);
-
-function calculateDistance(coord1, coord2) {
-    // Implementation of Haversine formula here...
-    // Return the calculated distance in meters
-}
+setInterval(updateBodyContent, 1000);
 
 function updateBodyContent() {
     avg = 1;
@@ -167,16 +159,6 @@ function updateBodyContent() {
             const expectedTimeMin = new Date(estimatedCall.expectedDepartureTime);
             const expectedMinutes = Math.floor((expectedTimeMin- currentTime) / 60000);
             const expectedTimeString = `${expectedMinutes} min`;
-            
-            const busCoordinates = estimatedCall.serviceJourney.vehicleLocation;
-            const stationCoordinates = {
-                latitude: 59.866864,
-                longitude: 10.839935
-            };
-            const distance = calculateDistance(busCoordinates, stationCoordinates);
-            const NEAR_THRESHOLD_METERS = 200; // Set your own threshold
-            const isBusNear = distance < NEAR_THRESHOLD_METERS;
-            
             const aimedTime = new Date(estimatedCall.aimedDepartureTime).toLocaleTimeString('no-NO', {hour: '2-digit', minute:'2-digit'});
             const aimedMinutes = new Date(estimatedCall.aimedDepartureTime);
             const aimedMinutesDate = Math.floor((aimedMinutes - currentTime) / 60000);
@@ -188,12 +170,10 @@ function updateBodyContent() {
             const platform = estimatedCall.quay.name;
             const departureCancelled = estimatedCall.cancellation;
             const situations = estimatedCall.situations;
-            console.log(situations);
 
             const predict = estimatedCall.predictionInaccurate;
             const occupancy = estimatedCall.occupancyStatus;
             const platformquay = estimatedCall.quay.publicCode;
-            console.log(platformquay);
             const avgangene = document.createElement('div');
             avgangene.className = 'avgang';
             avgangene.setAttribute('id', `avgang${avg}`);
@@ -266,7 +246,6 @@ function updateBodyContent() {
             for (let i = 0; i < situations.length; i++) {
                 const situationDescription = situations[i].summary[0].value;
                 const situationDescription2 = situations[i].description[0].value;
-                //console.log(situationAffects);
                 if (situationDescription) {
                     const noticepelement = document.createElement('h1');
                     const noticepelement2 = document.createElement('p');
@@ -287,37 +266,35 @@ function updateBodyContent() {
                     noticeElement.appendChild(noticepelement2);
                 };
             };
-            const noticepelement3 = document.createElement('p');
-            noticepelement3.className = 'affectspDiv3'
-            const noticepelement4 = document.createElement('p');
-            noticepelement4.className = 'affectspDiv4'
-            for (let i = 0; i < estimatedCall.situations.length; i++) {
-                for (let z = 0; z < estimatedCall.situations[i].affects.length; z++) {
-                    if (estimatedCall.situations[i].affects[z].stopPlace) {
-                        if (noticepelement3.textContent !== estimatedCall.situations[i].affects[z].stopPlace + ", ") {
-                            console.log(estimatedCall.situations[i].affects[z].stopPlace.name);
-                            noticepelement3.textContent = noticepelement3.textContent + estimatedCall.situations[i].affects[z].stopPlace.name + ", ";
-                        }
-                    } else if (estimatedCall.situations[i].affects[z].line) {
-                        if (estimatedCall.situations[i].affects[z].line + ", ") {
-                            console.log(estimatedCall.situations[i].affects[z].line.publicCode);
-                            noticepelement4.textContent = noticepelement4.textContent + estimatedCall.situations[i].affects[z].line.publicCode + ", ";
-                        }
+            // const noticepelement3 = document.createElement('p');
+            // noticepelement3.className = 'affectspDiv3'
+            // const noticepelement4 = document.createElement('p');
+            // noticepelement4.className = 'affectspDiv4'
+            // for (let i = 0; i < estimatedCall.situations.length; i++) {
+            //     for (let z = 0; z < estimatedCall.situations[i].affects.length; z++) {
+            //         if (estimatedCall.situations[i].affects[z].stopPlace) {
+            //             if (noticepelement3.textContent !== estimatedCall.situations[i].affects[z].stopPlace + ", ") {
+            //                 noticepelement3.textContent = noticepelement3.textContent + estimatedCall.situations[i].affects[z].stopPlace.name + ", ";
+            //             }
+            //         } else if (estimatedCall.situations[i].affects[z].line) {
+            //             if (estimatedCall.situations[i].affects[z].line + ", ") {
+            //                 noticepelement4.textContent = noticepelement4.textContent + estimatedCall.situations[i].affects[z].line.publicCode + ", ";
+            //             }
                         
-                    }
-                } 
-            }
-            noticepelement3.textContent = "Gjelder for stoppene: " + noticepelement3.textContent;
-            if (noticepelement3.textContent !== "Gjelder for stoppene: ") {
-                noticepelement3.textContent = noticepelement3.textContent.slice(0, -2); // Remove the last character
-                noticeElement.appendChild(noticepelement3);
-            }
-            noticepelement4.textContent = "Gjelder for linjene: " + noticepelement4.textContent;
+            //         }
+            //     } 
+            // }
+            // noticepelement3.textContent = "Gjelder for stoppene: " + noticepelement3.textContent;
+            // if (noticepelement3.textContent !== "Gjelder for stoppene: ") {
+            //     noticepelement3.textContent = noticepelement3.textContent.slice(0, -2); // Remove the last character
+            //     noticeElement.appendChild(noticepelement3);
+            // }
+            // noticepelement4.textContent = "Gjelder for linjene: " + noticepelement4.textContent;
             
-            if (noticepelement4.textContent !== "Gjelder for linjene: ") {
-                noticepelement4.textContent = noticepelement4.textContent.slice(0, -2); // Remove the last character
-                noticeElement.appendChild(noticepelement4);
-            }
+            // if (noticepelement4.textContent !== "Gjelder for linjene: ") {
+            //     noticepelement4.textContent = noticepelement4.textContent.slice(0, -2); // Remove the last character
+            //     noticeElement.appendChild(noticepelement4);
+            // }
             
 
             // const passengersElement = document.createElement('p');
