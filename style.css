@@ -302,3 +302,22 @@ p{
     margin-right: 8px;
     width: auto;
 }
+.index_wrapper{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    flex-flow: column;
+}
+.indexh1{
+    color: white;
+    font-family: 'TID UI Regular';
+}
+#velgen{
+    text-align: center;
+}
+.stasjonsbutton{
+    margin-left: 5px;
+    height: fit-content;
+    width: fit-content;
+}

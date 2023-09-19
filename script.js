@@ -3,6 +3,7 @@ let avg = 0;
 let textel = document.getElementById("text");
 let originaltidEl = document.getElementById("originaltid");
 let quaydisruptionsel = document.getElementById("quaydisruptions");
+var StopPlaceID = localStorage.getItem("ID");
 updateBodyContent();
 setInterval(updateBodyContent, 1000);
 
@@ -17,7 +18,7 @@ function updateBodyContent() {
     },
     body: JSON.stringify({ 
         query: `{
-            stopPlace(id: "NSR:StopPlace:58227") {
+            stopPlace(id: "${StopPlaceID}") {
                 situations {
                     affects {
                         ... on AffectedStopPlace {
@@ -213,11 +214,11 @@ function updateBodyContent() {
             expectedElement.className = 'expected';
             expectedElement.textContent = expectedTimeString;
             if (expectedElement.textContent === "-1 min") {
-                expectedElement.textContent = "Har kjørt";
+                expectedElement.textContent = "Kjørte nå";
             } else if (expectedElement.textContent === "0 min") {
                 expectedElement.textContent = "Nå";
             } else if (expectedElement.textContent === "1 min") {
-                expectedElement.textContent = "<1min";
+                expectedElement.textContent = "1 min";
             };
             const realTimeDisplay = document.createElement('img');
             if (predict) {
