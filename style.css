@@ -320,4 +320,12 @@ p{
     margin-left: 5px;
     height: fit-content;
     width: fit-content;
+    border: 0;
+    background-color: #353535;
+    color: white;
+    border-radius: 10px;
+    cursor: pointer;
+}
+.stasjonspelement:hover{
+    cursor: pointer;
 }
