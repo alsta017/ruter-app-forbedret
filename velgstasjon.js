@@ -36,7 +36,6 @@ inputStasjonEl.onkeydown = function () {
                     stasjonspelement.appendChild(stasjonsbutton);
                     velgenEl.appendChild(stasjonspelement)
                     velgEnArr.push(velgEnArrel);
-                    console.log(velgEnArr);
                     // localStorage.setItem("ID", stasjonsID);
                     // window.location.replace("avganger.html")
                 }
@@ -44,7 +43,6 @@ inputStasjonEl.onkeydown = function () {
         })
         .catch(error => {
             console.error("Error fetching data:", error);
-            console.log("Error fetching data.");
             alert("Error fetching data.");
         });
     }
