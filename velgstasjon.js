@@ -5,13 +5,18 @@ var searchTimeout;
 var a = 0;
 
 inputStasjonEl.onkeydown = function () {
+    velgEnArr = [];
+    velgenEl.textContent = "";
+    if (!loadingelement) {
+        var loadingelement = document.createElement("p");
+        loadingelement.className = "loadingtextindex";
+        loadingelement.textContent = "Laster inn...";
+        velgenEl.appendChild(loadingelement);
+    }
     if (searchTimeout != undefined) clearTimeout(searchTimeout);
     searchTimeout = setTimeout(søkenstasjon, 200);
 }
 function søkenstasjon () {
-    if (inputStasjonEl.childNodes.length = 0) {
-        alert("Skriv inn noe")
-    } else {
     var stasjonInputel = document.getElementById("inputStasjon");
     fetch(`https://api.entur.io/geocoder/v1/autocomplete?text=${stasjonInputel.value}`, {
             headers: {
@@ -44,12 +49,21 @@ function søkenstasjon () {
                     // window.location.replace("avganger.html")
                 }
             }
+            if (velgEnArr.length === 0) {
+                var nodataelement = document.createElement("p");
+                nodataelement.className = "loadingtextindex";
+                if (inputStasjonEl.value.length == 0) {
+                    nodataelement.textContent = "";
+                } else {
+                    nodataelement.textContent = "Ingen resultater.";
+                };
+                velgenEl.appendChild(nodataelement);
+            }
         })
         .catch(error => {
             console.error("Error fetching data:", error);
             alert("Error fetching data.");
         });
-    }
     }
 function buttonclicked(clicked_id) {
     localStorage.setItem("ID", velgEnArr[clicked_id - 1])

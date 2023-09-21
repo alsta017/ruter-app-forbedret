@@ -348,7 +348,7 @@ function updateBodyContent() {
             avg++;
     };
     textel.innerHTML = `Avganger fra: ${stopPlaceData.data.stopPlace.name}`;
-    originaltidEl.innerHTML = `Ruter API ting tang idk`;
+    originaltidEl.innerHTML = "Ruter/Entur API (Testing)";
 });
 };
 
