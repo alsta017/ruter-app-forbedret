@@ -1,10 +1,14 @@
 var inputStasjonEl = document.getElementById("inputStasjon")
 var velgenEl = document.getElementById("velgen")
 var velgEnArr = [];
+var searchTimeout;
 var a = 0;
 
-
 inputStasjonEl.onkeydown = function () {
+    if (searchTimeout != undefined) clearTimeout(searchTimeout);
+    searchTimeout = setTimeout(søkenstasjon, 200);
+}
+function søkenstasjon () {
     if (inputStasjonEl.childNodes.length = 0) {
         alert("Skriv inn noe")
     } else {
