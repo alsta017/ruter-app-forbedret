@@ -114,6 +114,9 @@ function updateBodyContent() {
                         }
                     }
                     serviceJourney {
+                        operator {
+                            id
+                        }
                         line {
                             publicCode
                             transportMode
@@ -171,6 +174,7 @@ function updateBodyContent() {
             const platform = estimatedCall.quay.name;
             const departureCancelled = estimatedCall.cancellation;
             const situations = estimatedCall.situations;
+            const erdetruter = estimatedCall.serviceJourney.operator.id;
 
             const predict = estimatedCall.predictionInaccurate;
             const occupancy = estimatedCall.occupancyStatus;
@@ -184,14 +188,18 @@ function updateBodyContent() {
             
             const lines = document.createElement('div');
             lines.className = 'line';
-            if (line > 0 && line < 10 && line.length < 2) {
-                lines.className = lines.classList + ' orange';
-            } else if (line > 9 && line < 20) {
-                lines.className = lines.classList + ' blue';
-            } else if (line.length > 1 && line.replace(/\D/g,'') > 19 && line.replace(/\D/g,'') < 99 || line == "1B" || line == "2B" || line == "2E" || line == "3B" || line == "4B" || line == "5B" || line == "100" || line == "110" || line == "130" || line == "130N" || line == "140" || line == "140N" || line == "145" || line == "300" || line == "300E"){
-                lines.className = lines.classList + ' red';
-            } else if (line.length > 1 && line.replace(/\D/g,'') > 99 && line.replace(/\D/g,'') < 4000) {
-                lines.className = lines.classList + ' green';
+            if (erdetruter.includes("RUT")) {
+                if (line > 0 && line < 10 && line.length < 2) {
+                    lines.className = lines.classList + ' orange';
+                } else if (line > 9 && line < 20) {
+                    lines.className = lines.classList + ' blue';
+                } else if (line.length > 1 && line.replace(/\D/g,'') > 19 && line.replace(/\D/g,'') < 99 || line == "1B" || line == "2B" || line == "2E" || line == "3B" || line == "4B" || line == "5B" || line == "100" || line == "110" || line == "130" || line == "130N" || line == "140" || line == "140N" || line == "145" || line == "300" || line == "300E"){
+                    lines.className = lines.classList + ' red';
+                } else if (line.length > 1 && line.replace(/\D/g,'') > 99 && line.replace(/\D/g,'') < 4000) {
+                    lines.className = lines.classList + ' green';
+                } else {
+                    lines.className = lines.classList + ' other';
+                };
             } else {
                 lines.className = lines.classList + ' other';
             };
