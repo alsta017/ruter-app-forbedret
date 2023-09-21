@@ -173,15 +173,15 @@ p{
 }
 @font-face {
     font-family: 'TID UI Regular';
-    src: url(Fonts/TIDUI-Regular.ttf);
+    src: url(fonts/TIDUI-Regular.ttf);
 }
 @font-face {
     font-family: 'TID UI Light';
-    src: url(Fonts/TIDUI-Light.ttf);
+    src: url(fonts/TIDUI-Light.ttf);
 }
 @font-face {
     font-family: 'TID UI Bold';
-    src: url(Fonts/TIDUI-Medium.ttf);
+    src: url(fonts/TIDUI-Medium.ttf);
 }
 @keyframes fadeIn { 
     from { opacity: 0; } 

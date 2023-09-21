@@ -148,7 +148,7 @@ function updateBodyContent() {
             affectsDiv2quay.className = 'affectsDiv2Quay';
             affectsImgquay.className = 'affectsImgQuay';
             affectsImgquay.alt = 'ruter_exclamation.svg';
-            affectsImgquay.src = 'Bilder/ruter_exclamation.svg';
+            affectsImgquay.src = 'bilder/ruter_exclamation.svg';
             noticepelement2quay.className = 'affectspDiv2Quay';
             noticepelementquay.className = 'affectspDivQuay';
             noticepelement2quay.textContent = situationDescriptionQuay2;
@@ -231,15 +231,15 @@ function updateBodyContent() {
             const realTimeDisplay = document.createElement('img');
             if (predict) {
                 realTimeDisplay.className = 'realtimedisplayred';
-                realTimeDisplay.src = 'Bilder/Basic_red_dot.png';
+                realTimeDisplay.src = 'bilder/Basic_red_dot.png';
                 realTimeDisplay.alt = 'Real time';
             } else if (isTimeReal) {
                 realTimeDisplay.className = 'realtimedisplay';
-                realTimeDisplay.src = 'Bilder/Basic_green_dot.png';
+                realTimeDisplay.src = 'bilder/Basic_green_dot.png';
                 realTimeDisplay.alt = 'Real time';
             } else {
                 realTimeDisplay.className = 'realtimedisplayred';
-                realTimeDisplay.src = 'Bilder/Basic_red_dot.png';
+                realTimeDisplay.src = 'bilder/Basic_red_dot.png';
                 realTimeDisplay.alt = 'Real time';
             };
             const aimedElement = document.createElement('div');
@@ -265,7 +265,7 @@ function updateBodyContent() {
                     affectsImg.className = 'affectsImg';
                     noticepelement.className = 'affectspDiv';
                     affectsImg.alt = 'ruter_exclamation.svg';
-                    affectsImg.src = 'Bilder/ruter_exclamation.svg';
+                    affectsImg.src = 'bilder/ruter_exclamation.svg';
                     affectsDiv2.className = 'affectsDiv2';
                     noticepelement2.className = 'affectspDiv2';
                     noticepelement.textContent = situationDescription;
@@ -331,7 +331,7 @@ function updateBodyContent() {
                 destinationDiv.className = destinationDiv.classList + ' destcancel dest2';
                 aimedElement.className = aimedElement.classList + ' destcancel';
                 expectedElement.className = expectedElement.classList + ' destcancelexp';
-                realTimeDisplay.src = 'Bilder/Basic_red_dot.png';
+                realTimeDisplay.src = 'bilder/Basic_red_dot.png';
             };
             
             lineFull.appendChild(lines);
