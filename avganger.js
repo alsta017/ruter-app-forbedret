@@ -181,7 +181,6 @@ function updateBodyContent() {
             const situations = estimatedCall.situations;
             const erdetruter = estimatedCall.serviceJourney.operator.id;
             const stopPosition = estimatedCall.serviceJourney.journeyPattern.quays;
-            console.log(stopPosition)
 
             const predict = estimatedCall.predictionInaccurate;
             const occupancy = estimatedCall.occupancyStatus;
@@ -340,6 +339,13 @@ function updateBodyContent() {
                 expectedElement.className = expectedElement.classList + ' destcancelexp';
                 realTimeDisplay.src = 'bilder/Basic_red_dot.png';
             };
+
+            var stationElement = document.createElement('p');
+            stationElement.className = "allStationList";
+            for (t = 0; t < estimatedCall.serviceJourney.journeyPattern.quays.length; t++) {
+                stationElement.textContent += estimatedCall.serviceJourney.journeyPattern.quays[t].name + ", ";
+            }
+            console.log(stationElement.textContent)
             
             lineFull.appendChild(lines);
             lineFull.appendChild(destinationDiv);
