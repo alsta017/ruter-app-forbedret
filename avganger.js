@@ -5,7 +5,7 @@ let originaltidEl = document.getElementById("originaltid");
 let quaydisruptionsel = document.getElementById("quaydisruptions");
 var StopPlaceID = localStorage.getItem("ID");
 updateBodyContent();
-setInterval(updateBodyContent, 1000);
+setInterval(updateBodyContent, 3000);
 
 function updateBodyContent() {
     avg = 1;
@@ -121,6 +121,11 @@ function updateBodyContent() {
                             publicCode
                             transportMode
                         }
+                        journeyPattern {
+                            quays {
+                                name
+                            }
+                        }
                     }
                 }
             }
@@ -175,6 +180,8 @@ function updateBodyContent() {
             const departureCancelled = estimatedCall.cancellation;
             const situations = estimatedCall.situations;
             const erdetruter = estimatedCall.serviceJourney.operator.id;
+            const stopPosition = estimatedCall.serviceJourney.journeyPattern.quays;
+            console.log(stopPosition)
 
             const predict = estimatedCall.predictionInaccurate;
             const occupancy = estimatedCall.occupancyStatus;
