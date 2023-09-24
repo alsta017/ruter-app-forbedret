@@ -377,5 +377,5 @@ function goback() {
     window.location.replace("index.html");
 }
 
-let toolTip = '''<div>id="tootip" tooltipData=""</div>'''
-let toolTipDataEl = document.getelementbyname('tooltip.tooltipData')
+//let toolTip = '''<div>id="tootip" tooltipData=""</div>'''
+//let toolTipDataEl = document.getelementbyname('tooltip.tooltipData')
