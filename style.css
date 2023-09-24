@@ -329,3 +329,29 @@ p{
 .stasjonspelement:hover{
     cursor: pointer;
 }
+.tooltip{ /* er ikke helt ferdig her*/
+    
+}
+.tooltipTxt{
+    
+}
+.tooltip .tooltipTxt { /* setter css en for tooltipTxt som er inne i diven tooltip */
+  visibility: hidden;
+  width: 120px;
+  background-color: #555;
+  color: #fff;
+  text-align: center;
+  border-radius: 6px;
+  padding: 5px 0;
+  position: absolute;
+  z-index: 1;
+  bottom: 125%;
+  left: 50%;
+  margin-left: -60px;
+  opacity: 0;
+  transition: opacity 0.3s;
+}
+.tooltip:hover .tooltipTxt { /* når du hovrer skal den vises */
+  visibility: visible;
+  opacity: 1;
+}
