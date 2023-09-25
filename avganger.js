@@ -4,9 +4,12 @@ let textel = document.getElementById("text");
 let originaltidEl = document.getElementById("originaltid");
 let quaydisruptionsel = document.getElementById("quaydisruptions");
 var StopPlaceID = localStorage.getItem("ID");
+// Starte koden når siden starter
 updateBodyContent();
+// Oppdatere tidene hver 30 sekunder
 setInterval(updateBodyContent, 3000);
 
+// Koden for å oppdatere siden
 function updateBodyContent() {
     avg = 1;
     fetch('https://api.entur.io/journey-planner/v3/graphql', {
@@ -16,6 +19,7 @@ function updateBodyContent() {
     'ET-Client-Name': 'alsta-bussen',
     'Content-Type': 'application/json'
     },
+    // GraphQL Query
     body: JSON.stringify({ 
         query: `{
             stopPlace(id: "${StopPlaceID}") {
@@ -137,10 +141,13 @@ function updateBodyContent() {
         let html = '';
         avgangerEl.innerHTML = "";
         const estimatedCalls = stopPlaceData.data.stopPlace.estimatedCalls;
+
+        // Avvik som gjelder for hele siden
         const noticeElementQuay = document.createElement('div');
         noticeElementQuay.className = 'noticesquay';
         const situationsquay = stopPlaceData.data.stopPlace;
         const situationsquaylength = stopPlaceData.data.stopPlace.situations;
+        // Skjekker hvor mange avviker det er og printer hvis det er, hvis ikke skip
         for (let g = 0; g < situationsquaylength.length; g++) {
             const situationDescriptionQuay = situationsquay.situations[g].summary[0].value;
             const situationDescriptionQuay2 = situationsquay.situations[g].description[0].value;
@@ -163,44 +170,47 @@ function updateBodyContent() {
             noticeElementQuay.appendChild(noticepelementquay);
             noticeElementQuay.appendChild(noticepelement2quay);
             }
+
+        // For alle avanger length
         for (let i = 0; i < estimatedCalls.length; i++) {
+            // Definerer alle variabler, siden vi må hente informasjonen
+            // Spesifiserer at det er denne EstimatedCall
             const estimatedCall = estimatedCalls[i];
             const currentTime = new Date();
             const expectedTimeMin = new Date(estimatedCall.expectedDepartureTime);
             const expectedMinutes = Math.floor((expectedTimeMin- currentTime) / 60000);
             const expectedTimeString = `${expectedMinutes} min`;
             const aimedTime = new Date(estimatedCall.aimedDepartureTime).toLocaleTimeString('no-NO', {hour: '2-digit', minute:'2-digit'});
-            const aimedMinutes = new Date(estimatedCall.aimedDepartureTime);
-            const aimedMinutesDate = Math.floor((aimedMinutes - currentTime) / 60000);
-            const howMuchDelayed = expectedMinutes - aimedMinutesDate;
             const expectedTime = new Date(estimatedCall.expectedDepartureTime).toLocaleTimeString('no-NO', {hour: '2-digit', minute:'2-digit'});
             const destination = estimatedCall.destinationDisplay.frontText;
             const line = estimatedCall.serviceJourney.line.publicCode;
             const isTimeReal = estimatedCall.realtime;
-            const platform = estimatedCall.quay.name;
             const departureCancelled = estimatedCall.cancellation;
             const situations = estimatedCall.situations;
             const erdetruter = estimatedCall.serviceJourney.operator.id;
-            const stopPosition = estimatedCall.serviceJourney.journeyPattern.quays;
-
             const predict = estimatedCall.predictionInaccurate;
-            const occupancy = estimatedCall.occupancyStatus;
-            const platformquay = estimatedCall.quay.publicCode;
+            
+            // Ny div å printe en og en avgang til (Skal bruke senere når man kan trykke for å se hvor bussen er)
             const avgangene = document.createElement('div');
             avgangene.className = 'avgang';
             avgangene.setAttribute('id', `avgang${avg}`);
             
+            // Full div for linjenummer og displaytekst
             const lineFull = document.createElement('div');
             lineFull.className = 'linefull';
             
+            // Div for linjenummer
             const lines = document.createElement('div');
             lines.className = 'line';
+            lines.textContent = line;
+
+            // Definere alle fargene for Ruter-linjene
             if (erdetruter.includes("RUT")) {
                 if (line > 0 && line < 10 && line.length < 2) {
                     lines.className = lines.classList + ' orange';
                 } else if (line > 9 && line < 20) {
                     lines.className = lines.classList + ' blue';
-                } else if (line.length > 1 && line.replace(/\D/g,'') > 19 && line.replace(/\D/g,'') < 99 || line == "1B" || line == "2B" || line == "2E" || line == "3B" || line == "4B" || line == "5B" || line == "100" || line == "110" || line == "130" || line == "130N" || line == "140" || line == "140N" || line == "145" || line == "300" || line == "300E"){
+                } else if (line.length > 1 && line.replace(/\D/g,'') > 19 && line.replace(/\D/g,'') < 99 || line == "1B" || line == "2B" || line == "2E" || line == "3B" || line == "4B" || line == "5B" || line == "100" || line == "110" || line == "130" || line == "130N" || line == "140" || line == "140N" || line == "145" || line == "300" || line == "300E" || line == "11B" || line == "13B" || line == "17B"){
                     lines.className = lines.classList + ' red';
                 } else if (line.length > 1 && line.replace(/\D/g,'') > 99 && line.replace(/\D/g,'') < 4000) {
                     lines.className = lines.classList + ' green';
@@ -210,15 +220,17 @@ function updateBodyContent() {
             } else {
                 lines.className = lines.classList + ' other';
             };
-            lines.textContent = line;
             
+            // Div for Tekst ved siden av linjenummer (Display)
             const destinationDiv = document.createElement('div');
             destinationDiv.className = 'destination';
             destinationDiv.textContent = destination;
             
+            // Div rundt hele tiden (Det til høyre)
             const allTime = document.createElement('div');
             allTime.className = 'alltime';
             
+            // Div og span for "exptected" og "delayed". Delayed er den røde teksten som kommer ved siden av bare når den er forsinket, så må definere i js
             const expectedElement = document.createElement('div');
             const delayElement = document.createElement('span');
             delayElement.style.color = "red";
@@ -228,6 +240,8 @@ function updateBodyContent() {
             delayElement.innerText = `(${howMuchDelayeddate})`;
             expectedElement.className = 'expected';
             expectedElement.textContent = expectedTimeString;
+            
+            // Definerer hva som står i de forskjellige minuttene
             if (expectedElement.textContent === "-1 min") {
                 expectedElement.textContent = "Kjørte nå";
             } else if (expectedElement.textContent === "0 min") {
@@ -236,11 +250,17 @@ function updateBodyContent() {
                 expectedElement.textContent = "1 min";
             };
             // Her Trygve img
+
+            // Lager div til rød/grønn sirkel ved siden av minuttene
             const realTimeDisplayDiv = document.createElement('div');
             const realTimeDisplay = document.createElement('img');
             realTimeDisplayDiv.appendChild(realTimeDisplay);
+
+            // WIP
             const redTextNode = document.createTextNode("Avganstider er basert på tabel");
             const greenTextNode = document.createTextNode("Avganstider er live oppdatert");
+
+            // Definerer om prikken ved siden av minuttene skal være Rød eller grønn basert på predict og isTimeReal
             if (predict) {
                 realTimeDisplayDiv.textNode = redTextNode;
                 realTimeDisplay.className = 'realtimedisplayred';
@@ -257,6 +277,8 @@ function updateBodyContent() {
                 realTimeDisplay.src = 'bilder/Basic_red_dot.png';
                 realTimeDisplay.alt = 'Real time';
             };
+
+            // Definerer "aimed", klokkeslettet som vises som manuelt til venstre for minuttene
             const aimedElement = document.createElement('div');
             if(expectedTime === aimedTime) {
                 aimedElement.className = 'aimed';
@@ -265,11 +287,14 @@ function updateBodyContent() {
                 aimedElement.className = 'aimeddelayed';
                 aimedElement.textContent = aimedTime;
             };
+
+            // Definerer om det er et avvik på linjen, og hvis det er så printer den under linjen
             const noticeElement = document.createElement('div');
             noticeElement.className = 'notices';
             for (let i = 0; i < situations.length; i++) {
                 const situationDescription = situations[i].summary[0].value;
                 const situationDescription2 = situations[i].description[0].value;
+                // Skjekker om avvik har noe value, hvis ikke skip
                 if (situationDescription) {
                     const noticepelement = document.createElement('h1');
                     const noticepelement2 = document.createElement('p');
@@ -277,7 +302,7 @@ function updateBodyContent() {
                     const affectsDiv2 = document.createElement('div');
                     const affectsImg = document.createElement('img');
                     // Her Trygve img
-		    // SetinEl(displaydrittEl) om det skjer her nede da...
+		            // SetinEl(displaydrittEl) om det skjer her nede da...
                     affectsDiv.className = 'affectsDiv';
                     affectsImg.className = 'affectsImg';
                     noticepelement.className = 'affectspDiv';
@@ -292,6 +317,10 @@ function updateBodyContent() {
                     noticeElement.appendChild(noticepelement2);
                 };
             };
+
+
+            // WIP  -  W O R K  I N  P R O G R E S S  - 
+
             // const noticepelement3 = document.createElement('p');
             // noticepelement3.className = 'affectspDiv3'
             // const noticepelement4 = document.createElement('p');
@@ -341,8 +370,10 @@ function updateBodyContent() {
             //     passengersDiv.appendChild(passengersElement);
             // };
 
+            // Lager en div for alt untatt avviksmeldingen
             const fulldiv = document.createElement('div');
             fulldiv.className = 'fullalldiv';
+            // Skjekker om avgang er kansellert, og hvis det er adde en class som stryker ut avgangen
             if(departureCancelled) {
                 lines.className = lines.classList + ' destcancel';
                 destinationDiv.className = destinationDiv.classList + ' destcancel dest2';
@@ -351,32 +382,38 @@ function updateBodyContent() {
                 realTimeDisplay.src = 'bilder/Basic_red_dot.png';
             };
 
+            // Sier fra om hvile stasjoner avviket gjelder for
+            // WIP  -  W O R K  I N  P R O G R E S S  -
             var stationElement = document.createElement('p');
             stationElement.className = "allStationList";
             for (t = 0; t < estimatedCall.serviceJourney.journeyPattern.quays.length; t++) {
                 stationElement.textContent += estimatedCall.serviceJourney.journeyPattern.quays[t].name + ", ";
             }
-            console.log(stationElement.textContent)
             
+            // Putter alt til HTML
             lineFull.appendChild(lines);
             lineFull.appendChild(destinationDiv);
+
             fulldiv.appendChild(lineFull);
 
-            //fulldiv.appendChild(passengersDiv);
             allTime.appendChild(aimedElement);
+
+            // Hvis forsinket, putt delayElement (Rød tekst)
             if (howMuchDelayeddate !== aimedTime) {
                 allTime.appendChild(delayElement);
             };
             
+            // Putter enda mer til HTML
             allTime.appendChild(expectedElement);
             allTime.appendChild(realTimeDisplay);
+
             fulldiv.appendChild(allTime);
 
             avgangene.appendChild(fulldiv);
             avgangene.appendChild(noticeElement);
             
             avgangerEl.appendChild(avgangene);
-            //quaydisruptionsel.appendChild(noticeElementQuay);
+            
             avg++;
     };
     textel.innerHTML = `Avganger fra: ${stopPlaceData.data.stopPlace.name}`;
