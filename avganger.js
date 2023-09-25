@@ -149,6 +149,7 @@ function updateBodyContent() {
             const affectsDivquay = document.createElement('div');
             const affectsDiv2quay = document.createElement('div');
             const affectsImgquay = document.createElement('img');
+            // Her Trygve img
             affectsDivquay.className = 'affectsDivQuay';
             affectsDiv2quay.className = 'affectsDiv2Quay';
             affectsImgquay.className = 'affectsImgQuay';
@@ -234,16 +235,24 @@ function updateBodyContent() {
             } else if (expectedElement.textContent === "1 min") {
                 expectedElement.textContent = "1 min";
             };
+            // Her Trygve img
+            const realTimeDisplayDiv = document.createElement('div');
             const realTimeDisplay = document.createElement('img');
+            realTimeDisplayDiv.appendChild(realTimeDisplay);
+            const redTextNode = document.createTextNode("Avganstider er basert på tabel");
+            const greenTextNode = document.createTextNode("Avganstider er live oppdatert");
             if (predict) {
+                realTimeDisplayDiv.textNode = redTextNode;
                 realTimeDisplay.className = 'realtimedisplayred';
                 realTimeDisplay.src = 'bilder/Basic_red_dot.png';
                 realTimeDisplay.alt = 'Real time';
             } else if (isTimeReal) {
+                realTimeDisplayDiv.textNode = greenTextNode;
                 realTimeDisplay.className = 'realtimedisplay';
                 realTimeDisplay.src = 'bilder/Basic_green_dot.png';
                 realTimeDisplay.alt = 'Real time';
             } else {
+                realTimeDisplayDiv.textNode = greenTextNode;
                 realTimeDisplay.className = 'realtimedisplayred';
                 realTimeDisplay.src = 'bilder/Basic_red_dot.png';
                 realTimeDisplay.alt = 'Real time';
@@ -267,6 +276,8 @@ function updateBodyContent() {
                     const affectsDiv = document.createElement('div');
                     const affectsDiv2 = document.createElement('div');
                     const affectsImg = document.createElement('img');
+                    // Her Trygve img
+		    // SetinEl(displaydrittEl) om det skjer her nede da...
                     affectsDiv.className = 'affectsDiv';
                     affectsImg.className = 'affectsImg';
                     noticepelement.className = 'affectspDiv';
@@ -376,6 +387,3 @@ function updateBodyContent() {
 function goback() {
     window.location.replace("index.html");
 }
-
-let toolTip = '''<div>id="tootip" tooltipData=""</div>'''
-let toolTipDataEl = document.getelementbyname('tooltip.tooltipData')
