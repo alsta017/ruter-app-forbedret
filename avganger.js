@@ -9,6 +9,7 @@ updateBodyContent();
 // Oppdatere tidene hver 30 sekunder
 setInterval(updateBodyContent, 3000);
 
+
 // Koden for å oppdatere siden
 function updateBodyContent() {
     avg = 1;
@@ -20,6 +21,7 @@ function updateBodyContent() {
     'Content-Type': 'application/json'
     },
     // GraphQL Query
+    // timeRange: 1999999999
     body: JSON.stringify({ 
         query: `{
             stopPlace(id: "${StopPlaceID}") {
@@ -41,15 +43,16 @@ function updateBodyContent() {
                 }
                 name
                 estimatedCalls(
-                    numberOfDepartures: 20
+                    numberOfDepartures: 50
                     includeCancelledTrips: true
                     arrivalDeparture: departures
-                    timeRange: 1999999999
+                    
                 ) {
                     quay {
                         publicCode
                     }
                     realtime
+                    realtimeState
                     expectedDepartureTime
                     aimedDepartureTime
                     cancellation
@@ -260,6 +263,18 @@ function updateBodyContent() {
             const redTextNode = document.createTextNode("Avganstider er basert på tabel");
             const greenTextNode = document.createTextNode("Avganstider er live oppdatert");
 
+            
+
+            // Definerer "aimed", klokkeslettet som vises som manuelt til venstre for minuttene
+            const aimedElement = document.createElement('div');
+            if(expectedTime === aimedTime) {
+                aimedElement.className = 'aimed';
+                aimedElement.textContent = aimedTime;
+            } else {
+                aimedElement.className = 'aimeddelayed';
+                aimedElement.textContent = aimedTime;
+            };
+
             // Definerer om prikken ved siden av minuttene skal være Rød eller grønn basert på predict og isTimeReal
             if (predict) {
                 realTimeDisplayDiv.textNode = redTextNode;
@@ -276,17 +291,9 @@ function updateBodyContent() {
                 realTimeDisplay.className = 'realtimedisplayred';
                 realTimeDisplay.src = 'bilder/Basic_red_dot.png';
                 realTimeDisplay.alt = 'Real time';
+                expectedElement.textContent = "ca. " + expectedElement.textContent;
             };
-
-            // Definerer "aimed", klokkeslettet som vises som manuelt til venstre for minuttene
-            const aimedElement = document.createElement('div');
-            if(expectedTime === aimedTime) {
-                aimedElement.className = 'aimed';
-                aimedElement.textContent = aimedTime;
-            } else {
-                aimedElement.className = 'aimeddelayed';
-                aimedElement.textContent = aimedTime;
-            };
+            
 
             // Definerer om det er et avvik på linjen, og hvis det er så printer den under linjen
             const noticeElement = document.createElement('div');
@@ -297,9 +304,9 @@ function updateBodyContent() {
                 // Skjekker om avvik har noe value, hvis ikke skip
                 if (situationDescription) {
                     const noticepelement = document.createElement('h1');
-                    const noticepelement2 = document.createElement('p');
+                    
                     const affectsDiv = document.createElement('div');
-                    const affectsDiv2 = document.createElement('div');
+                    
                     const affectsImg = document.createElement('img');
                     // Her Trygve img
 		            // SetinEl(displaydrittEl) om det skjer her nede da...
@@ -308,13 +315,17 @@ function updateBodyContent() {
                     noticepelement.className = 'affectspDiv';
                     affectsImg.alt = 'ruter_exclamation.svg';
                     affectsImg.src = 'bilder/ruter_exclamation.svg';
-                    affectsDiv2.className = 'affectsDiv2';
-                    noticepelement2.className = 'affectspDiv2';
                     noticepelement.textContent = situationDescription;
-                    noticepelement2.textContent = situationDescription2;
                     noticepelement.appendChild(affectsImg);
                     noticeElement.appendChild(noticepelement);
-                    noticeElement.appendChild(noticepelement2);
+                    if (situationDescription2) {
+                        const noticepelement2 = document.createElement('p');
+                        noticepelement2.className = 'affectspDiv2';
+                        noticepelement2.textContent = situationDescription2;
+                        const affectsDiv2 = document.createElement('div');
+                        affectsDiv2.className = 'affectsDiv2';
+                        noticeElement.appendChild(noticepelement2);
+                    }
                 };
             };
 
@@ -373,8 +384,11 @@ function updateBodyContent() {
             // Lager en div for alt untatt avviksmeldingen
             const fulldiv = document.createElement('div');
             fulldiv.className = 'fullalldiv';
+            var cancelledDiv = document.createElement('div');
+            cancelledDiv.className = "cancelledTextDiv";
             // Skjekker om avgang er kansellert, og hvis det er adde en class som stryker ut avgangen
             if(departureCancelled) {
+                cancelledDiv.textContent = " (Cancelled)"
                 lines.className = lines.classList + ' destcancel';
                 destinationDiv.className = destinationDiv.classList + ' destcancel dest2';
                 aimedElement.className = aimedElement.classList + ' destcancel';
@@ -391,8 +405,12 @@ function updateBodyContent() {
             }
             
             // Putter alt til HTML
+            var destinationDivFull = document.createElement('div');
+            destinationDivFull.className = "destinationDivFull";
+            destinationDivFull.appendChild(destinationDiv);
+            destinationDivFull.appendChild(cancelledDiv);
             lineFull.appendChild(lines);
-            lineFull.appendChild(destinationDiv);
+            lineFull.appendChild(destinationDivFull);
 
             fulldiv.appendChild(lineFull);
 

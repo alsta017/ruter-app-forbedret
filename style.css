@@ -69,6 +69,7 @@ body{
 .destination{
     display: flex;
     margin-left: 2px;
+    margin-right: 5px;
 }
 .line{
     border-radius: 8px;
@@ -132,6 +133,13 @@ p{
         width: 8px;
         height: 8px;
     }
+    .cancelledTextDiv{
+        font-size: 0.75em;
+    }
+    .realtimedisplayred{
+        width: 8px;
+        height: 8px;
+    }
 }
 @media only screen and (max-width: 1000px) {
     .line, .destination, .aimed, .expected, .realtime, .realtimedisplay, .actual{
@@ -141,6 +149,13 @@ p{
         width: 80%;
     }
     .realtimedisplay{
+        width: 4px;
+        height: 4px;
+    }
+    .cancelledTextDiv{
+        font-size: 0.75em;
+    }
+    .realtimedisplayred{
         width: 4px;
         height: 4px;
     }
@@ -170,6 +185,13 @@ p{
         width: 4px;
         height: 4px;
     }
+    .cancelledTextDiv{
+        font-size: 0.75em;
+    }
+    .realtimedisplayred{
+        width: 4px;
+        height: 4px;
+    }
 }
 @font-face {
     font-family: 'TID UI Regular';
@@ -190,14 +212,18 @@ p{
     animation: fadeIn 3s infinite alternate;
 } */
 .notices{
+    display: flex;
+    line-break:auto;
+    margin: auto;
     background-color: #FFC800;
     border-radius: 8px;
     display: flex;
     flex-flow: column;
     align-items: center;
+    width: fit-content;
 }
 .notices h1{
-    font-size: 100%;
+    font-size: 80%;
     font-family: 'TID UI Bold';
     color: #262626;
 }
@@ -279,7 +305,7 @@ p{
     display: flex;
 }
 .affectsImg{
-    height: 28px;
+    height: 20px;
     margin-right: 8px;
     width: auto;
 }
@@ -356,3 +382,13 @@ p{
   opacity: 1;
 }
 */
+.cancelledTextDiv{
+    white-space: nowrap;
+    font-size: 80%;
+    color: white;
+}
+.destinationDivFull {
+    display: flex;
+    flex-flow: row;
+    align-items: center;
+}
