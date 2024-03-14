@@ -29,30 +29,29 @@ function søkenstasjon () {
         })
         .then(response => response.json())
         .then(data => {
+            console.log(data)
             velgEnArr = [];
             velgenEl.textContent = "";
             a = 0;
             // For lengden av stasjoner
             for (x = 0; x < data.features.length; x++) {
-                for (c = 0; c < data.features[x].properties.category.length; c++) {
-                    if ((data.features[x].properties.id).includes("NSR:StopPlace:")) {
-                        a++
-                        // lage ny p element og knappen med class og id og alt
-                        var stasjonspelement = document.createElement('p');
-                        var stasjonsbutton = document.createElement('button');
-                        stasjonspelement.className = "stasjonspelement";
-                        stasjonsbutton.className = "stasjonsbutton";
-                        stasjonsbutton.setAttribute("id", `${a}`)
-                        stasjonspelement.setAttribute("id", `${a}`)
-                        stasjonsbutton.setAttribute("onclick", "buttonclicked(this.id)")
-                        stasjonspelement.setAttribute("onclick", "buttonclicked(this.id)")
-                        stasjonspelement.textContent = data.features[x].properties.label;
-                        var velgEnArrel = data.features[x].properties.id;
-                        stasjonsbutton.textContent = "Velg";
-                        stasjonspelement.appendChild(stasjonsbutton);
-                        velgenEl.appendChild(stasjonspelement)
-                        velgEnArr.push(velgEnArrel);
-                    }
+                if ((data.features[x].properties.id).includes("NSR:StopPlace:")) {
+                    a++
+                    // lage ny p element og knappen med class og id og alt
+                    var stasjonspelement = document.createElement('p');
+                    var stasjonsbutton = document.createElement('button');
+                    stasjonspelement.className = "stasjonspelement";
+                    stasjonsbutton.className = "stasjonsbutton";
+                    stasjonsbutton.setAttribute("id", `${a}`)
+                    stasjonspelement.setAttribute("id", `${a}`)
+                    stasjonsbutton.setAttribute("onclick", "buttonclicked(this.id)")
+                    stasjonspelement.setAttribute("onclick", "buttonclicked(this.id)")
+                    stasjonspelement.textContent = data.features[x].properties.name + ", " + data.features[x].properties.locality;
+                    var velgEnArrel = data.features[x].properties.id;
+                    stasjonsbutton.textContent = "Velg";
+                    stasjonspelement.appendChild(stasjonsbutton);
+                    velgenEl.appendChild(stasjonspelement)
+                    velgEnArr.push(velgEnArrel);   
                 }
             }
             console.log(data)

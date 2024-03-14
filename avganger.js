@@ -7,7 +7,7 @@ var StopPlaceID = localStorage.getItem("ID");
 // Starte koden når siden starter
 updateBodyContent();
 // Oppdatere tidene hver 30 sekunder
-setInterval(updateBodyContent, 3000);
+setInterval(updateBodyContent, 5000);
 
 
 // Koden for å oppdatere siden
@@ -46,7 +46,6 @@ function updateBodyContent() {
                     numberOfDepartures: 50
                     includeCancelledTrips: true
                     arrivalDeparture: departures
-                    
                 ) {
                     quay {
                         publicCode
@@ -144,6 +143,7 @@ function updateBodyContent() {
         let html = '';
         avgangerEl.innerHTML = "";
         const estimatedCalls = stopPlaceData.data.stopPlace.estimatedCalls;
+        console.log(stopPlaceData)
 
         // Avvik som gjelder for hele siden
         const noticeElementQuay = document.createElement('div');
@@ -183,11 +183,12 @@ function updateBodyContent() {
             const expectedTimeMin = new Date(estimatedCall.expectedDepartureTime);
             const expectedMinutes = Math.floor((expectedTimeMin- currentTime) / 60000);
             const expectedTimeString = `${expectedMinutes} min`;
-            const aimedTime = new Date(estimatedCall.aimedDepartureTime).toLocaleTimeString('no-NO', {hour: '2-digit', minute:'2-digit'});
-            const expectedTime = new Date(estimatedCall.expectedDepartureTime).toLocaleTimeString('no-NO', {hour: '2-digit', minute:'2-digit'});
+            const aimedTime = new Date(estimatedCall.aimedDepartureTime).toLocaleTimeString('no-NO', {hour: '2-digit', minute: '2-digit'});
+            const expectedTime = new Date(estimatedCall.expectedDepartureTime).toLocaleTimeString('no-NO', {hour: '2-digit', minute: '2-digit'});
             const destination = estimatedCall.destinationDisplay.frontText;
             const line = estimatedCall.serviceJourney.line.publicCode;
             const isTimeReal = estimatedCall.realtime;
+            const isTimeRealstate = estimatedCall.realtimeState;
             const departureCancelled = estimatedCall.cancellation;
             const situations = estimatedCall.situations;
             const erdetruter = estimatedCall.serviceJourney.operator.id;
@@ -388,12 +389,25 @@ function updateBodyContent() {
             cancelledDiv.className = "cancelledTextDiv";
             // Skjekker om avgang er kansellert, og hvis det er adde en class som stryker ut avgangen
             if(departureCancelled) {
-                cancelledDiv.textContent = " (Cancelled)"
-                lines.className = lines.classList + ' destcancel';
-                destinationDiv.className = destinationDiv.classList + ' destcancel dest2';
-                aimedElement.className = aimedElement.classList + ' destcancel';
-                expectedElement.className = expectedElement.classList + ' destcancelexp';
-                realTimeDisplay.src = 'bilder/Basic_red_dot.png';
+                if (isTimeRealstate == "canceled") {
+                    cancelledDiv.textContent = " (Cancelled)"
+                    lines.className = lines.classList + ' destcancel';
+                    destinationDiv.className = destinationDiv.classList + ' destcancel dest2';
+                    aimedElement.className = aimedElement.classList + ' destcancel';
+                    expectedElement.className = expectedElement.classList + ' destcancelexp';
+
+                } else {
+                    lines.className = lines.classList + ' destcancel';
+                    destinationDiv.className = destinationDiv.classList + ' destcancel dest2';
+                    aimedElement.className = aimedElement.classList + ' destcancel';
+                    expectedElement.className = expectedElement.classList + ' destcancelexp';
+                    cancelledDiv.textContent = " (Cancelled (No real time, so not guaranteed))"
+                    realTimeDisplayDiv.textNode = greenTextNode;
+                    realTimeDisplay.className = 'realtimedisplayred';
+                    realTimeDisplay.src = 'bilder/Basic_red_dot.png';
+                    realTimeDisplay.alt = 'Real time';
+                    expectedElement.textContent = expectedElement.textContent;
+                };
             };
 
             // Sier fra om hvile stasjoner avviket gjelder for
