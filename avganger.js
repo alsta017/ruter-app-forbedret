@@ -20,7 +20,8 @@ function updateBodyContent() {
     'ET-Client-Name': 'alsta-bussen',
     'Content-Type': 'application/json'
     },
-    // GraphQL Query
+    // GraphQL Query: 
+    // Link: https://tinyurl.com/3jf5k9we
     // timeRange: 1999999999
     body: JSON.stringify({ 
         query: `{
@@ -62,38 +63,6 @@ function updateBodyContent() {
                         via
                     }
                     situations {
-                        affects {
-                            ... on AffectedLine {
-                                __typename
-                                line {
-                                    publicCode
-                                }
-                            }
-                            ... on AffectedStopPlace {
-                                __typename
-                                stopPlace {
-                                    name
-                                }
-                            }
-                            ... on AffectedServiceJourney {
-                                operatingDay
-                                serviceJourney {
-                                    publicCode
-                                }
-                            }
-                            ... on AffectedStopPlaceOnLine {
-                                __typename
-                                stopPlace {
-                                    name
-                                }
-                            }
-                            ... on AffectedStopPlaceOnServiceJourney {
-                                operatingDay
-                                stopPlace {
-                                    name
-                                }
-                            }
-                        }
                         priority
                         summary {
                             value
