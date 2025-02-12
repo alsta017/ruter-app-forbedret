@@ -66,7 +66,7 @@ body{
     margin: 32px;
     margin-left: 8px;
 }
-.destination{
+.des tination{
     display: flex;
     margin-left: 2px;
     margin-right: 5px;
@@ -338,6 +338,7 @@ p{
 .indexh1{
     color: white;
     font-family: 'TID UI Regular';
+    font-size: 300%;
 }
 #velgen{
     text-align: center;
@@ -391,4 +392,91 @@ p{
     display: flex;
     flex-flow: row;
     align-items: center;
+}
+.inputStasjonDiv{
+    display: flex;
+    flex-flow: column;
+    align-items: center;
+    justify-content: center;
+    padding: 8px;
+    border-radius: 8px;
+    background-color: #1F1F1F;
+}
+#velgEnText{
+    font-size: 150%;
+    margin-top: 8%;
+    margin-bottom: 8%;
+}
+
+.index_wrapper {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    flex-flow: column;
+}
+
+.indexh1 {
+    color: white;
+    font-family: 'TID UI Regular';
+    font-size: 300%;
+}
+
+.inputStasjonDiv {
+    display: flex;
+    flex-flow: column;
+    align-items: center;
+    justify-content: center;
+    padding: 8px;
+    border-radius: 8px;
+    background-color: #1F1F1F;
+}
+
+#velgEnText {
+    font-size: 150%;
+}
+
+.stasjonsbutton {
+    margin-left: 5px;
+    height: fit-content;
+    width: fit-content;
+    border: 0;
+    background-color: #353535;
+    color: white;
+    border-radius: 10px;
+    cursor: pointer;
+}
+
+.overlay {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.8);
+    justify-content: center;
+    align-items: center;
+}
+
+.overlay-content {
+    background: #212121;
+    padding: 20px;
+    border-radius: 10px;
+    text-align: center;
+    color: white;
+    width: 50%;
+    position: relative;
+}
+
+.close-button {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    background: red;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    padding: 5px 10px;
+    cursor: pointer;
 }
